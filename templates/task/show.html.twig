@@ -1,0 +1,60 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Liste de tâche d'un client{% endblock %}
+
+{% block body %}
+{% set break = false %}
+{% for task in tasks %}
+    {% if not break %}
+        {% if task.customer.id == customer_id %}
+            <h1>{{ task.customer.name }}</h1>
+            {% set break = true %}
+        {% endif %}
+    {% endif %}
+{% endfor %}
+
+{% include "task/_navbar.html.twig" %}
+<table>
+    <tr>
+        <td>
+            <a href="{{ path('app_tasks_new', { customer_id: customer_id }) }}">Ajouter une tâche</a>
+        </td>
+    </tr>
+    <tr>
+        <th>Tâches</th>
+    </tr>
+    {% set Task = false %}
+    {% for task in tasks %}
+        {% if task.customer.id == customer_id %}
+            {% set Task = true %}
+            <tr>
+                <td>
+                    <h2>- {{ task.name }} -</h2>
+                </td>
+                <td>
+                    <a href="{{ path('app_tasks_edit', { customer_id: task.customer.id,id: task.id }) }}">Modifier</a>
+                </td>
+                <td>
+                    <a href="{{ path('app_tasks_delete', { customer_id: task.customer.id,id: task.id }) }}" onclick="return confirm('Voulez vous vraiment supprimer votre tâche ? #{{ task.name }}#')">Supprimer</a>
+                </td>
+            <tr>
+                <td>
+                    <p>* {{ task.content }} *</p>
+                </td>
+            </tr>
+            </tr>
+
+        {% endif %}
+    {% endfor %}
+    {% if not Task %}
+            <tr>
+                <td>
+                    <p>No task</p>
+                </td>
+            </tr>
+            {% endif %}
+    
+</table>
+
+
+{% endblock %}

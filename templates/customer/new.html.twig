@@ -1,0 +1,21 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Ajout de client{% endblock %}
+
+{% block body %}
+    <h1>Ajouter un client</h1>
+    <table>
+        <tr>
+            <th>Client</th>
+        </tr>
+    
+    
+        <tr>
+            <td>
+                {{ form(form) }}
+            </td>
+        </tr>
+    
+    </table>
+
+{% endblock %}

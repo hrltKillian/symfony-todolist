@@ -1,0 +1,21 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Ajout d'une tâche{% endblock %}
+
+{% block body %}
+    <h1>Ajouter une tâche</h1>
+    <table>
+        <tr>
+            <th>tâche</th>
+        </tr>
+    
+    
+        <tr>
+            <td>
+                {{ form(form) }}
+            </td>
+        </tr>
+    
+    </table>
+
+{% endblock %}

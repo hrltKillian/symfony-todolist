@@ -1,0 +1,14 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}client{% endblock %}
+
+{% block body %}
+    <h1> {{ customer.name }}</h1>
+    {% include "task/_navbar.html.twig" %}
+
+    <p>This is your mail : {{ customer.email }}</p>
+    <p>This is your password : {{ customer.password }}</p>
+    <a href="{{ path('app_tasks', { customer_id: customer.id })}}">Your Tasks</a>
+    
+    
+{% endblock %}
