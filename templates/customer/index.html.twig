@@ -4,11 +4,23 @@
 
 {% block body %}
     <h1>Liste de clients</h1>
+    <div class="count">
+        Il y a {{ customers.getTotalItemCount }} clients
+    </div>
     <table>
         <tr>
             <td>
                 <a href="{{ path('app_customers_new') }}">Ajouter un client</a>
             </td>
+        </tr>
+        <tr>
+            {# sorting of properties based on query components #}
+            <th {% if customers.isSorted("c.id") %} class="sorted" {% endif %}>
+                Trier par {{ knp_pagination_sortable(customers, 'Id', 'c.id') }}
+            </th>
+            <th{% if customers.isSorted('c.name') %} class="sorted"{% endif %}>
+                Trier par {{ knp_pagination_sortable(customers, 'Name', 'c.name') }}
+            </th>
         </tr>
         <tr>
             <th>Client</th>
@@ -35,4 +47,7 @@
             </tr>
         {% endfor %}
     </table>
+    <div class="navigation">
+        {{ knp_pagination_render(customers) }}
+    </div>
 {% endblock %}

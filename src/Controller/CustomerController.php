@@ -8,6 +8,7 @@ use App\Repository\CustomerRepository;
 use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\Mapping\Entity;
+use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -17,11 +18,20 @@ class CustomerController extends AbstractController
 {
     #[Route('/customers', name: 'app_customers')]
     public function index(
-        CustomerRepository $customerRepository
+        CustomerRepository $customerRepository,
+        PaginatorInterface $paginatorInterface,
+        Request $request
     ): Response
     {
+
+        $pagination = $paginatorInterface->paginate(
+            $customerRepository->createQueryBuilder("c"), /* query NOT result */
+            $request->query->getInt('page', 1), /*page number*/
+            2 /*limit per page*/
+        );
+
         return $this->render('customer/index.html.twig', [
-            'customers' => $customerRepository->findAll(),
+            'customers' => $pagination,
         ]);
     }
 
