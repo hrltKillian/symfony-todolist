@@ -4,6 +4,7 @@ namespace App\Form;
 
 use App\Entity\Task;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -14,7 +15,8 @@ class TaskType extends AbstractType
     {
         $builder
             ->add('name')
-            ->add('content')
+            ->add('content', TextType::class, [
+                'attr' => array('class' => 'text')])
             ->add('customer')
             ->add("Envoyer", SubmitType::class)
         ;

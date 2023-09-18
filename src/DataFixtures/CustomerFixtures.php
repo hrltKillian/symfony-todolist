@@ -8,31 +8,38 @@ use App\Entity\Customer;
 use App\Entity\Task;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Persistence\ObjectManager;
+use App\DataFixtures\CustomerFixtures;
+use Doctrine\Common\DataFixtures\DependentFixtureInterface;
 
-class CustomerFixtures extends Fixture
+
+
+class TaskFixtures extends Fixture
 {
-    protected $faker;
-
-    public const CUSTOMER_EXAMPLE = ["EXAMPLE1","EXAMPLE2","EXAMPLE3","EXAMPLE4","EXAMPLE5"];
+    //protected $faker;
 
     public function load(ObjectManager $manager): void
     {
-        $this->faker = Factory::create("fr_FR");
+        //$this->faker = Factory::create("fr_FR");
+/*
+        for ($i = 0; $i < 5; $i++) {
 
-        for ($i=0; $i<5; $i++){
-            $customer = new Customer();
-            $customer->setName($this->faker->name());
-            $customer->setEmail($this->faker->unique()->email());
-            $customer->setPassword($this->faker->password());
-
-            $this->addReference(self::CUSTOMER_EXAMPLE[$i], $customer);
-
-            $manager->persist($customer);
-            $manager->flush();
+            for ($j = 0; $j < $this->faker->randomDigit(); $j++) {
+*/
+                $task = new Task();/*
+                $task->setName($this->faker->word());
+                $task->setContent($this->faker->sentence());
+                $manager->persist($task);
+                $task->setCustomer($this->getReference(CustomerFixtures::CUSTOMER_EXAMPLE[$i]));
+*/
+                $manager->flush();
+            //}
         }
-
-        
-
-        
     }
-}
+/*
+    public function getDependencies()
+    {
+        return array(
+            CustomerFixtures::class,
+        );
+    }
+}*/

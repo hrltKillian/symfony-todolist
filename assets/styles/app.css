@@ -1,0 +1,28 @@
+.text {
+    width: 300%;
+}
+
+.task_title {
+    /*color: #e6e6e6;*/
+    font-size: 2em;
+}
+
+.task_name {
+    text-transform: capitalize;
+    /*color: #b09eff;*/
+}
+
+.task_content {
+    text-transform: capitalize;
+    /*color: #cfff9e;*/
+}
+
+a {
+    /*color: #9efff7;*/
+    text-decoration: none;    
+}
+
+table {
+    justify-content: center;
+    align-items: center;
+}

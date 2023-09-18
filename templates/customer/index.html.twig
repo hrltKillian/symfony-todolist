@@ -14,21 +14,19 @@
             <th>Client</th>
             <th>Tâches</th>
         </tr>
-        
-    
         {% for customer in customers %}
             <tr>
                 <td>
-                    <a href="{{ path('app_customers_show', { id: customer.id }) }}">{{ customer.name }}</a>
+                    <a href="{{ path('app_customers_show', { slug: customer.slug }) }}">{{ customer.name }}</a>
                 </td>
                 <td>
                     <p >{{ customer.task|length }}</p>    
                 </td>
                 <td>
-                    <a href="{{ path('app_customers_edit', { id: customer.id }) }}">Modifier</a>    
+                    <a href="{{ path('app_customers_edit', { slug: customer.slug }) }}">Modifier</a>    
                 </td>
                 <td>
-                    <a href="{{ path('app_customers_delete', { id: customer.id }) }}" onclick="return confirm('Voulez vous vraiment supprimer {{ customer.name }} ?')" >Supprimer</a>    
+                    <a href="{{ path('app_customers_delete', { slug: customer.slug }) }}" onclick="return confirm('Voulez vous vraiment supprimer {{ customer.name }} ?')" >Supprimer</a>    
                 </td>
             </tr>
         {% else %}
@@ -36,7 +34,5 @@
                 <td>Aucun client</td>
             </tr>
         {% endfor %}
-        
     </table>
-
 {% endblock %}

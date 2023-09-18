@@ -25,7 +25,7 @@ class CustomerController extends AbstractController
         ]);
     }
 
-    #[Route('/customers/{id<\d+>}', name: 'app_customers_show')]
+    #[Route('/customers/{slug}', name: 'app_customers_show')]
     public function show(
         Customer $customer
     ): Response
@@ -35,7 +35,7 @@ class CustomerController extends AbstractController
         ]);
     }
 
-    #[Route('/customers/new', name: 'app_customers_new')]
+    #[Route('/customers/new', name: 'app_customers_new', priority:2)]
     public function new(
         Request $request,
         EntityManagerInterface $entityManagerInterface
@@ -44,21 +44,20 @@ class CustomerController extends AbstractController
         $form = $this->createForm(CustomerType::class);
         $form->handleRequest($request);
 
-        if($form->isSubmitted() && $form->isValid()) {
+        if ($form->isSubmitted() && $form->isValid()) 
+        {
             $customer = $form->getData();
             $entityManagerInterface->persist($customer);
             $entityManagerInterface->flush();
-
+            $this->addFlash("success", "Vous avez bien créé votre compte client.");
             return $this->redirectToRoute("app_customers");
         }
-
         return $this->render('customer/new.html.twig', [
             "form" => $form,
-
         ]);
     }
 
-    #[Route('/customers/{id<\d+>}/edit', name: 'app_customers_edit')]
+    #[Route('/customers/{slug}/edit', name: 'app_customers_edit')]
     public function edit(
         Request $request,
         EntityManagerInterface $entityManagerInterface,
@@ -67,30 +66,27 @@ class CustomerController extends AbstractController
     {
         $form = $this->createForm(CustomerType::class, $customer);
         $form->handleRequest($request);
-
-        if($form->isSubmitted() && $form->isValid()) {
-            
+        if ($form->isSubmitted() && $form->isValid()) 
+        {
             $entityManagerInterface->flush();
-
+            $this->addFlash("success", "Vous avez bien édité votre compte client.");
             return $this->redirectToRoute("app_customers");
         }
-
         return $this->render('customer/edit.html.twig', [
             "form" => $form,
             "customer" => $customer
         ]);
     }
 
-    #[Route('/customers/{id<\d+>}/delete', name: 'app_customers_delete')]
+    #[Route('/customers/{slug}/delete', name: 'app_customers_delete')]
     public function delete(
         EntityManagerInterface $entityManagerInterface,
         Customer $customer
     ): Response
     {
-
         $entityManagerInterface->remove($customer);
         $entityManagerInterface->flush();
+        $this->addFlash("success", "Vous avez bien supprimé votre compte client.");
         return $this->redirectToRoute("app_customers");
-        
     }
 }
